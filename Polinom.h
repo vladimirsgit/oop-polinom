@@ -25,7 +25,7 @@ public:
     friend Polinom<D> operator*(const Polinom<D> &a, const Polinom<D> &b);
     template <class E>
     friend bool operator==(const Polinom<E> &a, const Polinom<E> &b);
-    operator T();
+    explicit operator T();
 
 
 };
