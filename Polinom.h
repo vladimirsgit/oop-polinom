@@ -25,7 +25,11 @@ public:
     friend Polinom<D> operator*(const Polinom<D> &a, const Polinom<D> &b);
     template <class E>
     friend bool operator==(const Polinom<E> &a, const Polinom<E> &b);
+    operator T();
+
+
 };
+
 template<class T>
 Polinom<T>::Polinom(int g, ...) {
     va_list arg;    /// creez lista cu argumente
@@ -116,6 +120,10 @@ bool operator==(const Polinom<T> &a, const Polinom<T> &b) {
             return false;
     }
     return true;
+}
+template<class T>
+Polinom<T>::operator T() {
+    return this->c[0];
 }
 
 
