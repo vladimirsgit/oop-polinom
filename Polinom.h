@@ -1,7 +1,3 @@
-//
-// Created by Vladimir on 11/04/2023.
-//
-
 #ifndef POLINOMOOP_POLINOM_H
 #define POLINOMOOP_POLINOM_H
 #include <string>
@@ -12,8 +8,9 @@ class Polinom {
     T c[100];
     int grad;
 public:
-    Polinom(int g, ...);
+    Polinom(int g, T value...);
     Polinom();
+    explicit Polinom(T value);
     int getGrad() const;
     template <class A>
     friend ostream & operator<<(ostream &o, const Polinom<A> &x);
@@ -31,13 +28,20 @@ public:
 };
 
 template<class T>
-Polinom<T>::Polinom(int g, ...) {
+Polinom<T>::Polinom(int g, T value ...) {
     va_list arg;    /// creez lista cu argumente
     grad = g;
-    va_start(arg, g+1); /// punem in lista g+1 argumente
-    for(int i=g; i>=0; i--)
+    va_start(arg, g); /// punem in lista g+1 argumente
+    c[g] = value;
+    for(int i=g-1; i>=0; i--)
         c[i]=va_arg(arg, T);
     va_end(arg);   /// elibereaza memoria alocata
+}
+
+template<class T>
+Polinom<T>::Polinom(T value){
+        grad = 0;
+        this->c[0] = value;
 }
 
 template<class T>

@@ -1,7 +1,3 @@
-//
-// Created by Vladimir on 11/04/2023.
-//
-
 #ifndef POLINOMOOP_COMPLEX_H
 #define POLINOMOOP_COMPLEX_H
 #include <iostream>
