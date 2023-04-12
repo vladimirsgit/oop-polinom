@@ -13,15 +13,17 @@ public:
     explicit Polinom(T value);
     int getGrad() const;
     template <class A>
-    friend ostream & operator<<(ostream &o, const Polinom<A> &x);
+    friend ostream & operator<<(ostream &basicOstream, const Polinom<A> &x);
     template <class B>
-    friend Polinom<B> operator+(const Polinom<B> &a, const Polinom<B> &b);
+    friend istream & operator>>(istream &basicIstream, Polinom<B> &x);
     template <class C>
-    friend Polinom<C> operator-(const Polinom<C> &a, const Polinom<C> &b);
+    friend Polinom<C> operator+(const Polinom<C> &a, const Polinom<C> &b);
     template <class D>
-    friend Polinom<D> operator*(const Polinom<D> &a, const Polinom<D> &b);
+    friend Polinom<D> operator-(const Polinom<D> &a, const Polinom<D> &b);
     template <class E>
-    friend bool operator==(const Polinom<E> &a, const Polinom<E> &b);
+    friend Polinom<E> operator*(const Polinom<E> &a, const Polinom<E> &b);
+    template <class F>
+    friend bool operator==(const Polinom<F> &a, const Polinom<F> &b);
     explicit operator T();
 
 
@@ -58,7 +60,7 @@ int Polinom<T>::getGrad() const{
 }
 
 template<class T>
-ostream & operator<<(ostream &o, const Polinom<T> &x) {
+ostream & operator<<(ostream &basicOstream, const Polinom<T> &x) {
     for(int i=x.grad; i>=0; i--)
     {   string output = to_string(x.c[i]) + "x^" + to_string(i) + " ";
         if(i == 0){
@@ -66,15 +68,24 @@ ostream & operator<<(ostream &o, const Polinom<T> &x) {
         }
         if(i == x.grad)
         {
-            o <<  output;
+            basicOstream << output;
         }
         else {
             if(x.c[i] < 0)
-                o << output;
-            else o << "+"s << output; //aici a trebuit sa pun s ca sa mearga
+                basicOstream << output;
+            else basicOstream << "+"s << output; //aici a trebuit sa pun s ca sa mearga
         }
     }
-    return o;
+    return basicOstream;
+}
+template<class T>
+istream & operator>>(istream &basicIstream, Polinom<T> &x){
+    cout << "Introdu gradul polinomului prima data, apoi coeficientii: ";
+    basicIstream >> x.grad;
+    for(int i = x.grad; i >= 0; i--){
+        basicIstream >> x.c[i];
+    }
+    return basicIstream;
 }
 template<class T>
 Polinom<T> operator+(const Polinom<T> &a, const Polinom<T> &b) {

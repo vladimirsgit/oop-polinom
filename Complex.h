@@ -9,7 +9,8 @@ class Complex {
 public:
     Complex();
     Complex(int r, int i);
-    friend ostream & operator<<(ostream &o, const Complex &x);
+    friend ostream & operator<<(ostream &basicOstream, const Complex &x);
+    friend istream & operator>>(istream &basicIstream, Complex &x);
     friend Complex operator+(const Complex& a, const Complex& b);
     friend Complex operator-(const Complex& a, const Complex& b);
     friend Complex operator*(const Complex& a, const Complex& b);
