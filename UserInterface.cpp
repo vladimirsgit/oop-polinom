@@ -7,7 +7,7 @@ void UserInterface::start() {
     cout << "Salut!\nAcesta este un program unde vei crea polinoame de diferite tipuri, sau numere complexe.\n\n" <<
             "Te rog sa alegi o optiune:\n\n";
     while(true){
-        cout << firstChoices;
+        cout << this->firstChoices;
         int chosenOption;
         do {
             cout << "Optiunea aleasa trebuie sa fie 1, 2 sau 3.\n";
@@ -60,11 +60,8 @@ void UserInterface::goToComplexMenu() {
 void UserInterface::simulateExiting() {
     cout << "Sper ca te-ai simtit bine!\n";
     cout << "Exiting";
-    this_thread::sleep_for(chrono::milliseconds(300));
-    cout << ".";
-    this_thread::sleep_for(chrono::milliseconds(300));
-    cout << ".";
-    this_thread::sleep_for(chrono::milliseconds(300));
-    cout << ".";
-
+    for(int i = 0; i < 3; i++){
+        this_thread::sleep_for(chrono::milliseconds(400));
+        cout << ".";
+    }
 }
