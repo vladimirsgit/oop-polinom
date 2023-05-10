@@ -4,8 +4,8 @@
 #include <string>
 using namespace std;
 class Complex {
-    int r;
-    int i;
+    int realPart;
+    int imaginaryPart;
 public:
     Complex();
     Complex(int r, int i);
