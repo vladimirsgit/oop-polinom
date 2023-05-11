@@ -1,6 +1,8 @@
 #include "UserInterface.h"
 
-UserInterface::UserInterface(): firstChoices("1: Creeaza un polinom sau mai multe.\n2: Creeaza un numar complex sau mai multe.\n3: Paraseste programul.\n"){
+UserInterface::UserInterface(): firstChoices("1: Creeaza un polinom sau mai multe.\n2: Creeaza un numar complex sau mai multe.\n3: Paraseste programul.\n"),
+                                polinomTypeChoices("Alege tipul coeficientilor:\n1: Integer\n2: Float\n3:Complex\n4:Meniul anterior.\n5:Paraseste programul.\n"){
+
 }
 
 void UserInterface::start() {
@@ -11,14 +13,14 @@ void UserInterface::start() {
         int chosenOption;
         do {
             cout << "Optiunea aleasa trebuie sa fie 1, 2 sau 3.\n";
-            chosenOption = getFirstOption();
+            chosenOption = getOption();
         } while (chosenOption < 1 || chosenOption > 3);
         goToSecondMenu(chosenOption);
     }
 
 }
 
-int UserInterface::getFirstOption() {
+int UserInterface::getOption() {
     string optionInput;
     cin >> optionInput; //userul introduce optiunea
     try{
@@ -36,10 +38,10 @@ void UserInterface::goToSecondMenu(int selectedOption) {
 
     switch(selectedOption){
         case 1:
-            goToPolinomMenu();
+            polinomMenu();
             break;
         case 2:
-            goToComplexMenu();
+            complexMenu();
             break;
         default:
         {
@@ -49,13 +51,71 @@ void UserInterface::goToSecondMenu(int selectedOption) {
     }
 }
 
-void UserInterface::goToPolinomMenu() {
+void UserInterface::polinomMenu() {
+
+    while(true){
+        cout << this->polinomTypeChoices;
+        int chosenOption;
+        do {
+            cout << "Optiunea aleasa trebuie sa fie 1, 2, 3, 4 sau 5.\n";
+            chosenOption = getOption();
+        } while (chosenOption < 1 || chosenOption > 5);
+        if(chosenOption == 4)
+            return;
+        goToPolinomSubmenu(chosenOption);
+
+    }
+}
+
+void UserInterface::goToPolinomSubmenu(int selectedOption) {
+    switch(selectedOption){
+        case 1:
+        case 2:
+        case 3:
+            checkTypeOfPolinom(selectedOption);
+            break;
+        default:
+        {
+            simulateExiting();
+            exit(0);
+        }
+    }
+}
+
+void UserInterface::checkTypeOfPolinom(int selectedOption) {
+    switch (selectedOption) {
+        case 1:
+            createPolynom<int>();
+            break;
+        case 2:
+            createPolynom<float>();
+            break;
+        case 3:
+            createPolynom<Complex>();
+            break;
+    }
+}
+template <class T>
+void UserInterface::createPolynom() {
+    cout << "Cate polinoame vrei sa creezi?";
+    int numberOfPolinoms;
+    cin >> numberOfPolinoms;
+    vector<Polinom<T>> polinoms;
+    for(int i = 0; i < numberOfPolinoms; i++){
+        Polinom<T> a;
+        cin >> a;
+        polinoms.emplace_back(a);
+    }
 
 }
 
-void UserInterface::goToComplexMenu() {
+//TODO: CREATE POLINOM OPERATIONS FUNCTIONS
+
+
+void UserInterface::complexMenu() {
 
 }
+
 
 void UserInterface::simulateExiting() {
     cout << "Sper ca te-ai simtit bine!\n";

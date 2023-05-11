@@ -13,6 +13,7 @@ public:
     Polinom(int g, T value...);
     Polinom();
     explicit Polinom(T value);
+    ~Polinom();
     int getGrad() const;
     template <class A>
     friend ostream & operator<<(ostream &basicOstream, const Polinom<A> &x);
@@ -35,6 +36,11 @@ private:
 };
 
 template<class T>
+Polinom<T>::~Polinom() {
+    delete[] polinomValues;
+}
+
+template<class T>
 bool Polinom<T>::checkIfComplex() const {
     return is_same<T, Complex>::value;
 }
@@ -47,8 +53,9 @@ Polinom<T>::Polinom(int g, T value ...) {
     grad = g;
     va_start(arg, g); /// punem in lista g+1 argumente
     polinomValues[g] = value;
+
     for(int i=g-1; i>=0; i--)
-        polinomValues[i]=va_arg(arg, T);
+     polinomValues[i]=va_arg(arg, T);
     va_end(arg);   /// elibereaza memoria alocata
 }
 
