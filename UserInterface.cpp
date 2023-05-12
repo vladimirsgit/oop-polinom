@@ -95,6 +95,7 @@ void UserInterface::checkTypeOfPolinom(int selectedOption) {
             break;
     }
 }
+
 template <class T>
 void UserInterface::createPolynom() {
     cout << "Cate polinoame vrei sa creezi?";
@@ -125,3 +126,4 @@ void UserInterface::simulateExiting() {
         cout << ".";
     }
 }
+
