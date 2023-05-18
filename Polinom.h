@@ -111,6 +111,7 @@ ostream & operator<<(ostream &basicOstream, const Polinom<T> &x) {
             output = output.substr(0, output.size() - 4);
         }
         if(i == x.grad){
+
             basicOstream << output;
         }
         else {
@@ -125,7 +126,7 @@ template<class T>
 istream & operator>>(istream &basicIstream, Polinom<T> &x){
     string grad;
     do{
-        cout << "Introdu gradul polinomului prima data, apoi coeficientii: \n";
+        cout << "Introdu gradul polinomului prima data, apoi coeficientii:\nGrad: ";
         grad = x.validateInteger(true);
     }while(grad == "error");
     x.grad = stoi(grad);

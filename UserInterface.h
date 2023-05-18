@@ -12,6 +12,7 @@ class UserInterface {
 private:
     const string firstChoices;
     const string polinomTypeChoices;
+    const string polinomOpChoices;
 
 
 public:
@@ -26,6 +27,12 @@ private:
     void checkTypeOfPolinom(int selectedOption);
     template <class A>
     void createPolynom();
+//    template <class B>
+//    void chooseOperation(vector <Polinom<B>> &vectorPolinom);
+//    template <class C>
+//    void doOperations(const vector<Polinom<C>> &vectorPolinom, int operation, int selectedOption1, int selectedOption2);
+//    template <class D>
+//    void choosePolinom(const vector<Polinom<D>> &vectorPolinom, int operation);
     static void simulateExiting();
 
 };

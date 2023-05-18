@@ -1,7 +1,8 @@
 #include "UserInterface.h"
 
 UserInterface::UserInterface(): firstChoices("1: Creeaza un polinom sau mai multe.\n2: Creeaza un numar complex sau mai multe.\n3: Paraseste programul.\n"),
-                                polinomTypeChoices("Alege tipul coeficientilor:\n1: Integer\n2: Float\n3:Complex\n4:Meniul anterior.\n5:Paraseste programul.\n"){
+                                polinomTypeChoices("Alege tipul coeficientilor:\n1: Integer\n2: Float\n3:Complex\n4:Meniul anterior.\n5:Paraseste programul.\n"),
+                                polinomOpChoices("Poti aduna, scadea sau inmulti polinoame.\n1: Adunare\n2:Scadere\n3:Inmultire.\n4:Meniul anterior\n5:Paraseste programul.\n"){
 
 }
 
@@ -101,21 +102,75 @@ void UserInterface::createPolynom() {
     cout << "Cate polinoame vrei sa creezi?";
     int numberOfPolinoms;
     cin >> numberOfPolinoms;
-    vector<Polinom<T>> polinoms;
+    vector<Polinom<T>> vectorPolinom;
     for(int i = 0; i < numberOfPolinoms; i++){
         Polinom<T> a;
+        cout << "Polinomul #" << i + 1 << ": ";
         cin >> a;
-        polinoms.emplace_back(a);
+        vectorPolinom.emplace_back(a);
     }
-
+//    chooseOperation(vectorPolinom);
 }
 
 //TODO: CREATE POLINOM OPERATIONS FUNCTIONS
-
-
-void UserInterface::complexMenu() {
-
-}
+//template <class T>
+//void UserInterface::chooseOperation(vector<Polinom<T>> &vectorPolinom){
+//    cout << polinomOpChoices;
+//    int selectedOp;
+//    do{
+//        cout << "Optiunea aleasa";
+//        selectedOp = getOption();
+//    } while(selectedOp < 1 || selectedOp > 5);
+//
+//    switch (selectedOp) {
+//        case 1:
+//        case 2:
+//        case 3:
+//            choosePolinom(vectorPolinom, selectedOp);
+//            break;
+//        case 4:
+//            return;
+//        case 5:
+//            simulateExiting(), exit(0);
+//
+//    }
+//   choosePolinom(vectorPolinom, selectedOp);
+//}
+//
+//
+//template <class T>
+//void UserInterface::choosePolinom(const vector<Polinom<T>> &vectorPolinom, int operation){
+//    for(int i = 0; i < vectorPolinom.size(); i++){
+//        cout << i + 1  << " : " << vectorPolinom[i] << "\n";
+//    }
+//    int selectedOption1, selectedOption2;
+//    do{
+//        cout << "Alege cele 2 polinoame pe care vrei sa le incluzi in operatia ta: ";
+//
+//        selectedOption1 = getOption();
+//        if(selectedOption1 < 1 || selectedOption1 > vectorPolinom.size())
+//            continue;
+//        selectedOption2 = getOption();
+//        if(selectedOption2 < 1 || selectedOption2 > vectorPolinom.size())
+//            continue;
+//        break;
+//    }while(true);
+//
+//    doOperations(vectorPolinom, operation, selectedOption1, selectedOption2);
+//
+//}
+//
+//template <class T>
+//void UserInterface::doOperations(const vector<Polinom<T>> &vectorPolinom, int operation, int polinom1, int polinom2) {
+//
+//    Polinom<T> polinomA = vectorPolinom[polinom1-1];
+//    Polinom<T> polinomB = vectorPolinom[polinom2-1];
+//    Polinom<T> polinomRezultat;
+////    switch (operation) {
+////        case 1:
+////            polinomRezultat = polinomA + polinomB;
+////    }
+//}
 
 
 void UserInterface::simulateExiting() {
@@ -126,4 +181,9 @@ void UserInterface::simulateExiting() {
         cout << ".";
     }
 }
+
+void UserInterface::complexMenu() {
+
+}
+
 
