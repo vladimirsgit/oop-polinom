@@ -21,18 +21,18 @@ public:
 private:
     int getOption();
     void goToSecondMenu(int selectedOption);
-    void complexMenu();
     void polinomMenu();
     void goToPolinomSubmenu(int selectedOption);
     void checkTypeOfPolinom(int selectedOption);
     template <class A>
     void createPolynom();
-//    template <class B>
-//    void chooseOperation(vector <Polinom<B>> &vectorPolinom);
-//    template <class C>
-//    void doOperations(const vector<Polinom<C>> &vectorPolinom, int operation, int selectedOption1, int selectedOption2);
-//    template <class D>
-//    void choosePolinom(const vector<Polinom<D>> &vectorPolinom, int operation);
+    template <class B>
+    void chooseOperation(vector <Polinom<B>> &vectorPolinom);
+    template <class C>
+    void doPolinomOperations(const vector<Polinom<C>> &vectorPolinom, int operation, int selectedOption1, int selectedOption2);
+    template <class D>
+    void choosePolinom(const vector<Polinom<D>> &vectorPolinom, int operation);
+    void complexMenu();
     static void simulateExiting();
 
 };

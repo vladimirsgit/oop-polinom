@@ -135,30 +135,21 @@ istream & operator>>(istream &basicIstream, Polinom<T> &x){
         T coefficient;
         string coefficientString;
         cout << "x^" << i << ": ";
-        if(x.checkTypeInt()){
-            do{
+        if(x.checkTypeInt()) {
+            do {
                 coefficientString = x.validateInteger(false);
-            }while(coefficientString == "error");
+            } while (coefficientString == "error");
+            int coefficientInt = stoi(coefficientString);
+            x.polinomValues[i] = coefficientInt;
         }
-        int coefficientInt = stoi(coefficientString);
-        x.polinomValues[i] = coefficientInt;
     }
     return basicIstream;
 }
 template<class T>
 Polinom<T> operator+(const Polinom<T> &a, const Polinom<T> &b) {
     int gradMax = max(a.grad, b.grad);
-    Polinom<T> c;
-    if(c.checkIfComplex()){
-        Complex z(0, 0);
-        Polinom<T> aux(gradMax, z);
-        c = aux;
-    }
-    else {
-        T arg;
-        Polinom<T> aux(gradMax, arg);
-        c = aux;
-    }
+    T arg;
+    Polinom<T> c(gradMax, arg);
     for(int i = gradMax; i >= 0; i--){
         if(i > a.grad){
             c.polinomValues[i] = b.polinomValues[i];
@@ -175,17 +166,8 @@ Polinom<T> operator+(const Polinom<T> &a, const Polinom<T> &b) {
 template<class T>
 Polinom<T> operator-(const Polinom<T> &a, const Polinom<T> &b) {
     int gradMax = max(a.grad, b.grad);
-    Polinom<T> c;
-    if(c.checkIfComplex()){
-        Complex z(0, 0);
-        Polinom<T> aux(gradMax, z);
-        c = aux;
-    }
-    else {
-        T arg;
-        Polinom<T> aux(gradMax, arg);
-        c = aux;
-    }
+    T arg;
+    Polinom<T> c(gradMax, arg);
 
     for(int i = gradMax; i >= 0; i--){
         if(i > a.grad){
@@ -205,17 +187,9 @@ template<class T>
 Polinom<T> operator*(const Polinom<T> &a, const Polinom<T> &b) {
     int gradMax = max(a.grad, b.grad);
     int gradMin = min(a.grad, b.grad);
-    Polinom<T> c;
-    if(c.checkIfComplex()){
-        Complex z(0, 0);
-        Polinom<T> aux(gradMax + gradMin, z);
-        c = aux;
-    }
-    else {
-        T arg;
-        Polinom<T> aux(gradMax + gradMin, arg);
-        c = aux;
-    }
+    T arg;
+    Polinom<T> c(gradMax+gradMin, arg);
+
     for(int i = 0; i <= gradMax + gradMin; i++){
         c.polinomValues[i] = 0;
     }

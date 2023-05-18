@@ -65,4 +65,5 @@ Complex& Complex::operator=(int value) {
 string to_string(const Complex &a) {
     string output = "(" + to_string(a.realPart) + ((a.imaginaryPart) >= 0 ? "+" : "") + to_string(a.imaginaryPart) + "i" + ")";
     return output;
+
 }
