@@ -1,21 +1,21 @@
 #include "UserInterface.h"
 
-UserInterface::UserInterface(): firstChoices("1: Creeaza un polinom sau mai multe.\n2: Creeaza un numar complex sau mai multe.\n3: Paraseste programul.\n"),
-                                polinomTypeChoices("Alege tipul coeficientilor:\n1: Integer\n2: Float\n3:Complex\n4:Meniul anterior.\n5:Paraseste programul.\n"),
-                                polinomOpChoices("Poti aduna, scadea sau inmulti polinoame.\n1: Adunare\n2:Scadere\n3:Inmultire.\n4:Meniul anterior\n5:Paraseste programul.\n"){
+UserInterface::UserInterface(): firstChoices("\n\n1: Creeaza un polinom sau mai multe.\n2: Paraseste programul.\n"),
+                                polinomTypeChoices("\n\nAlege tipul coeficientilor:\n1: Integer\n2: Float\n3: Complex\n4: Meniul anterior.\n5: Paraseste programul.\n"),
+                                polinomOpChoices("\n\nPoti aduna, scadea sau inmulti polinoame.\n1: Adunare\n2: Scadere\n3: Inmultire.\n4: Meniul anterior\n5: Paraseste programul.\n"){
 
 }
 
 void UserInterface::start() {
-    cout << "Salut!\nAcesta este un program unde vei crea polinoame de diferite tipuri, sau numere complexe.\n\n" <<
+    cout << "Salut!\nAcesta este un program unde vei crea polinoame de diferite tipuri.\n\n" <<
             "Te rog sa alegi o optiune:\n\n";
     while(true){
         cout << this->firstChoices;
         int chosenOption;
         do {
-            cout << "Optiunea aleasa trebuie sa fie 1, 2 sau 3.\n";
+            cout << "Optiunea aleasa trebuie sa fie 1 sau 2.\n";
             chosenOption = getOption();
-        } while (chosenOption < 1 || chosenOption > 3);
+        } while (chosenOption < 1 || chosenOption > 2);
         goToSecondMenu(chosenOption);
     }
 
@@ -41,9 +41,9 @@ void UserInterface::goToSecondMenu(int selectedOption) {
         case 1:
             polinomMenu();
             break;
-        case 2:
-            complexMenu();
-            break;
+//        case 2:
+//            complexMenu();
+//            break;
         default:
         {
            simulateExiting();
@@ -112,7 +112,6 @@ void UserInterface::createPolynom() {
     chooseOperation(vectorPolinom);
 }
 
-//TODO: CREATE POLINOM OPERATIONS FUNCTIONS
 template <class T>
 void UserInterface::chooseOperation(vector<Polinom<T>> &vectorPolinom){
     cout << polinomOpChoices;
@@ -151,6 +150,20 @@ void UserInterface::choosePolinom(const vector<Polinom<T>> &vectorPolinom, int o
 
     }while(selectedOption1 < 1 || selectedOption2 > vectorPolinom.size() || selectedOption2 < 1 || selectedOption2 > vectorPolinom.size());
 
+    cout << "Polinoamele alese sunt:\n";
+    cout << "Polinom #" << selectedOption1 << ": " << vectorPolinom[selectedOption1-1] << "\n";
+    switch (operation) {
+        case 1:
+            cout << "+\n";
+            break;
+        case 2:
+            cout << "-\n";
+            break;
+        default:
+            cout << "*\n";
+    }
+    cout << "Polinom #" << selectedOption2 << ": " << vectorPolinom[selectedOption2-1] << "\n";
+
     doPolinomOperations(vectorPolinom, operation, selectedOption1, selectedOption2);
 
 }
@@ -160,13 +173,13 @@ void UserInterface::doPolinomOperations(const vector<Polinom<T>> &vectorPolinom,
 
     switch (operation) {
         case 1:
-            cout << vectorPolinom[selectedOption1-1] + vectorPolinom[selectedOption2-1] << "\n";
+            cout << "Rezultat: " << vectorPolinom[selectedOption1-1] + vectorPolinom[selectedOption2-1] << "\n";
             break;
         case 2:
-            cout <<vectorPolinom[selectedOption1-1] - vectorPolinom[selectedOption2-1] << "\n";
+            cout << "Rezultat: " << vectorPolinom[selectedOption1-1] - vectorPolinom[selectedOption2-1] << "\n";
             break;
         case 3:
-            cout << vectorPolinom[selectedOption1-1] * vectorPolinom[selectedOption2-1] << "\n";
+            cout << "Rezultat: " << vectorPolinom[selectedOption1-1] * vectorPolinom[selectedOption2-1] << "\n";
             break;
         default:
             return;
@@ -184,8 +197,8 @@ void UserInterface::simulateExiting() {
     }
 }
 
-void UserInterface::complexMenu() {
-
-}
+//void UserInterface::complexMenu() {
+//
+//}
 
 

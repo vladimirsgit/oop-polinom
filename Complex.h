@@ -19,6 +19,9 @@ public:
     friend bool operator<(const Complex& a, int value);
     Complex& operator=(int value);
     friend string to_string(const Complex &a);
+
+private:
+    string validateInteger();
 };
 
 

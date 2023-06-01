@@ -32,7 +32,7 @@ private:
     void doPolinomOperations(const vector<Polinom<C>> &vectorPolinom, int operation, int selectedOption1, int selectedOption2);
     template <class D>
     void choosePolinom(const vector<Polinom<D>> &vectorPolinom, int operation);
-    void complexMenu();
+//    void complexMenu();
     static void simulateExiting();
 
 };

@@ -19,8 +19,16 @@ ostream &operator<<(ostream &basicOstream, const Complex &x) {
 }
 
 istream & operator>>(istream &basicIstream, Complex &x){
-    cout << "Introdu partea reala, apoi partea imaginara: ";
-    basicIstream >> x.realPart >> x.imaginaryPart;
+    string realPart, imaginaryPart;
+    do{
+        cout << "Partea reala: ";
+        realPart = x.validateInteger();
+        cout << "Partea imaginara: ";
+        imaginaryPart = x.validateInteger();
+    }while(realPart == "error" || imaginaryPart == "error");
+
+    x.realPart = stoi(realPart);
+    x.imaginaryPart = stoi(imaginaryPart);
     return basicIstream;
 }
 
@@ -57,8 +65,26 @@ bool operator<(const Complex &a, int value) {
     return a.realPart < value;
 }
 
+string Complex::validateInteger(){
+    string input;
+    cin >> input;
+    int inputToInteger;
+    try{
+        inputToInteger = stoi(input);
+        return input;
+    } catch(const invalid_argument& invalidArgument){ //numarul contine litere
+        cout << "Incearca sa introduci un numar valid.\n";
+        return "error";
+    } catch(const out_of_range& outOfRange){ //numarul este prea mare
+        cout << "Incearca sa introduci un numar valid.\n";
+        return "error";
+    }
+}
+
+
+
 Complex& Complex::operator=(int value) {
-    this->realPart = this->imaginaryPart = 0;
+    this->realPart = this->imaginaryPart = value;
     return *this;
 }
 
