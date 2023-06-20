@@ -1,3 +1,0 @@
-C:/Users/Vladimir/CLionProjects/PolinomOOP/cmake-build-debug/CMakeFiles/PolinomOOP.dir
-C:/Users/Vladimir/CLionProjects/PolinomOOP/cmake-build-debug/CMakeFiles/edit_cache.dir
-C:/Users/Vladimir/CLionProjects/PolinomOOP/cmake-build-debug/CMakeFiles/rebuild_cache.dir
