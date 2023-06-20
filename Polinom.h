@@ -6,8 +6,8 @@
 using namespace std;
 template <class T>
 class Polinom {
-    T* polinomValues;
-    int grad;
+    T* polinomValues; //Pointer catre inceputul unui array
+    int grad; //gradul polinomului
 public:
     Polinom(int g, initializer_list<T> values);
     Polinom();
@@ -38,6 +38,10 @@ private:
 
 };
 
+
+
+/*Aici am creat constructorul de copiere
+Copiaza prima data gradul polinomului primit ca parametru, aloca memorie pentru un nou vector de marimea gradului + 1*/
 template<class T>
 Polinom<T>::Polinom(const Polinom &p) { //constructor de copiere, pentru a crea un nou obiect, nu doar sa salveze adresa
     grad = p.grad;
@@ -47,7 +51,7 @@ Polinom<T>::Polinom(const Polinom &p) { //constructor de copiere, pentru a crea 
     }
 
 }
-
+//Am creat destructorul, in care verificam daca pointerul catre inceputul polinomValues este null, daca nu este, il sterge
 template<class T>
 Polinom<T>::~Polinom() { //destructor
     if(this->polinomValues != nullptr){ //verificam sa nu fie null pointerul catre vectorul coeficientilor
@@ -73,8 +77,10 @@ bool Polinom<T>::checkTypeFloat() const {
     return is_same<T, float>::value;
 }
 
+/*Constructor care primeste ca argument pe primul loc gradul polinomului, iar apoi coeficientii, de la cel mai mare
+la cel mai mic*/
 template<class T>
-Polinom<T>::Polinom(int g, initializer_list<T> values) { //constructor, folosim lista de initializare pt argumente
+Polinom<T>::Polinom(int g, initializer_list<T> values) {
     this->polinomValues = new T[g+1];
     grad = g;
     int i = g;
@@ -85,6 +91,7 @@ Polinom<T>::Polinom(int g, initializer_list<T> values) { //constructor, folosim 
     }
 }
 
+//creeaza un polinom de gradul 0
 template<class T>
 Polinom<T>::Polinom(T value){
     this->polinomValues = new T[1];
@@ -99,13 +106,17 @@ Polinom<T>::Polinom() { //constructor default
     polinomValues[0] = 0;
 }
 
+
+//getter pentru gradul unui polinom
 template<class T>
 int Polinom<T>::getGrad() const{
     return this->grad;
 }
 
+// supraincarcarea operatorului de afisare
+
 template<class T>
-ostream & operator<<(ostream &basicOstream, const Polinom<T> &x) { //operatorul de afisare
+ostream & operator<<(ostream &basicOstream, const Polinom<T> &x) {
 
     for(int i=x.grad; i>=0; i--)
     {   string output = to_string(x.polinomValues[i]) + "x^" + to_string(i) + " ";
@@ -119,26 +130,31 @@ ostream & operator<<(ostream &basicOstream, const Polinom<T> &x) { //operatorul 
         else {
             if(x.polinomValues[i] < 0)
                 basicOstream << output;
-            else basicOstream << "+"s << output; //aici a trebuit sa pun s ca sa mearga
+            else basicOstream << "+"s << output;
         }
     }
     return basicOstream;
 }
+
+
+//supraincarcarea operatorului de input
 template<class T>
 istream & operator>>(istream &basicIstream, Polinom<T> &x){ //operatorul de input
     string grad;
+    //aici cat timp userul nu introduce un tip de date INT pentru grad, nu va fi acceptat inputul
     do{
         cout << "Introdu gradul polinomului prima data, apoi coeficientii:\nGrad: ";
         grad = x.validateInteger(true); //aici dau degree sa vada daca verificam gradul sau nu
     }while(grad == "error");
 
+    //transformam gradul in integer
     x.grad = stoi(grad);
     x.polinomValues = new T[x.grad+1];
 
     for(int i = x.grad; i >= 0; i--){
         string coefficientString;
         cout << "x^" << i << ": ";
-
+    //pentru fiecare tip de data a coeficientilor polinomului, verificam sa fie corespunzator: integer, float sau Complex
         if(x.checkTypeInt()) {
             do {
                 coefficientString = x.validateInteger(false); //aici ii zicem ca nu verificam grad, deci verificam un coeficient
@@ -161,6 +177,12 @@ istream & operator>>(istream &basicIstream, Polinom<T> &x){ //operatorul de inpu
     }
     return basicIstream;
 }
+
+/* supraincarcarea operatorului de adunare +
+ * Verificam care este gradul maxim dintre cele 2 polinoame, pentru a stii cum sa cream noul polinom
+ * Acesta va primi ca argument gradul maxim, si o lista de argumente care ar reprezenta primul coeficient. acesta este utilizat doar pt a initializa noul polinom
+ * Pe urma,ii vor fi atribuite elementele necesare
+ * */
 template<class T>
 Polinom<T> operator+(const Polinom<T> &a, const Polinom<T> &b) {
     int gradMax = max(a.grad, b.grad);
@@ -179,6 +201,7 @@ Polinom<T> operator+(const Polinom<T> &a, const Polinom<T> &b) {
     }
     return c;
 }
+//supraincarcarea operatorului de scadere -, asemanator cu operatorul +
 template<class T>
 Polinom<T> operator-(const Polinom<T> &a, const Polinom<T> &b) {
     int gradMax = max(a.grad, b.grad);
@@ -199,6 +222,8 @@ Polinom<T> operator-(const Polinom<T> &a, const Polinom<T> &b) {
     return c;
 }
 
+//supraincarcarea operatorului de inmultire *, crearea polinomului este asemanatoare ca in cazul primelor 2 operatori.
+//inmultim toate valorile din primul polinom cu toate din al doilea polinom
 template<class T>
 Polinom<T> operator*(const Polinom<T> &a, const Polinom<T> &b) {
     int gradMax = max(a.grad, b.grad);
@@ -216,6 +241,8 @@ Polinom<T> operator*(const Polinom<T> &a, const Polinom<T> &b) {
     }
     return c;
 }
+//supraincarcarea operatorului ==. daca gradele sunt diferite, atunci clar nu sunt egale, altfel verifica daca vreun coeficient este diferit, returneaza fals, altfel la final returneaza true, inseamna ca polinoamele
+//sunt egale
 template<class T>
 bool operator==(const Polinom<T> &a, const Polinom<T> &b) {
     if(a.grad != b.grad)
@@ -226,12 +253,16 @@ bool operator==(const Polinom<T> &a, const Polinom<T> &b) {
     }
     return true;
 }
+//conversia de tip, trasnforma de exemplu un polinom de tip integer intr un integer care este reprezentat de coeficientul x^0.
 template<class T>
 Polinom<T>::operator T() { //type conversion
     return this->polinomValues[0];
 }
+
+//metoda pt a valida inputurile de tip integer
+//primeste ca argument degree, pt a stii daca verifica sa fie gradul polinomului sau doar coeficient.
 template<class T>
-string Polinom<T>::validateInteger(bool degree) { //validam inputurile de tip integer
+string Polinom<T>::validateInteger(bool degree) {
     string input;
     cin >> input;
     int inputToInteger;
@@ -251,6 +282,7 @@ string Polinom<T>::validateInteger(bool degree) { //validam inputurile de tip in
     }
 }
 
+//asemenator pentru inputuri de tip float
 template <class T>
 string Polinom<T>::validateFloat() { //validam inputurile de tip float
     string input;

@@ -1,11 +1,12 @@
 #include "UserInterface.h"
-
+//constructor in care cream tipuril de alegeri pe care le are userul
 UserInterface::UserInterface(): firstChoices("\n\n1: Creeaza un polinom sau mai multe.\n2: Paraseste programul.\n"),
                                 polinomTypeChoices("\n\nAlege tipul coeficientilor:\n1: Integer\n2: Float\n3: Complex\n4: Meniul anterior.\n5: Paraseste programul.\n"),
                                 polinomOpChoices("\n\nPoti aduna, scadea sau inmulti polinoame.\n1: Adunare\n2: Scadere\n3: Inmultire.\n4: Meniul anterior\n5: Paraseste programul.\n"){
 
 }
 
+//din aceasta metoda porneste totul, este cea apelata in functia main
 void UserInterface::start() {
     cout << "Salut!\nAcesta este un program unde vei crea polinoame de diferite tipuri.\n\n" <<
             "Te rog sa alegi o optiune:\n\n";
@@ -21,6 +22,8 @@ void UserInterface::start() {
 
 }
 
+
+//metoda pe care o reutilizam in fiecare meniu si submeniu, pentru a lua optiunea pe care o doreste userul
 int UserInterface::getOption() {
     string optionInput;
     cin >> optionInput; //userul introduce optiunea
@@ -35,6 +38,8 @@ int UserInterface::getOption() {
     }
 }
 
+
+//functie pt a merge la meniul urmatorul, care fie este meniu Polinom, fie iese din program
 void UserInterface::goToSecondMenu(int selectedOption) {
 
     switch(selectedOption){
@@ -52,6 +57,9 @@ void UserInterface::goToSecondMenu(int selectedOption) {
     }
 }
 
+//meniul polinom in care userul alege ce doreste sa faca
+//daca alege sa mearga in meniul anterior, pur si simplu dam return, altfel mergem in submeniu
+
 void UserInterface::polinomMenu() {
 
     while(true){
@@ -68,6 +76,7 @@ void UserInterface::polinomMenu() {
     }
 }
 
+//submeniul primeste ca argument optiunea selectata de user, si transmite mai departe daca este cazul ce tip de polinom doreste userul sa creeze
 void UserInterface::goToPolinomSubmenu(int selectedOption) {
     switch(selectedOption){
         case 1:
@@ -83,6 +92,8 @@ void UserInterface::goToPolinomSubmenu(int selectedOption) {
     }
 }
 
+//cream polinom in functie de alegerea userului
+
 void UserInterface::checkTypeOfPolinom(int selectedOption) {
     switch (selectedOption) {
         case 1:
@@ -97,6 +108,7 @@ void UserInterface::checkTypeOfPolinom(int selectedOption) {
     }
 }
 
+//aici cream cate polinoame doreste userul si cream un vector care sa le contina pe toate, iar acel vector il transmitem prin referinta catre metoda in care alegem ce operatie doreste userul sa faca
 template <class T>
 void UserInterface::createPolynom() {
     cout << "Cate polinoame vrei sa creezi? ";
@@ -112,6 +124,8 @@ void UserInterface::createPolynom() {
     chooseOperation(vectorPolinom);
 }
 
+
+//aici alegem operatia pe care doreste userul sa o faca
 template <class T>
 void UserInterface::chooseOperation(vector<Polinom<T>> &vectorPolinom){
     cout << polinomOpChoices;
@@ -136,6 +150,7 @@ void UserInterface::chooseOperation(vector<Polinom<T>> &vectorPolinom){
 }
 
 
+//metoda prin care alegem cele 2 polinoame pe care doreste userul sa le aduna, scada, sau inmulteasca
 template <class T>
 void UserInterface::choosePolinom(const vector<Polinom<T>> &vectorPolinom, int operation){
     for(int i = 0; i < vectorPolinom.size(); i++){
@@ -168,6 +183,7 @@ void UserInterface::choosePolinom(const vector<Polinom<T>> &vectorPolinom, int o
 
 }
 
+//aici se fac operatiile propriu zise si se afiseaza rezultatul
 template <class T>
 void UserInterface::doPolinomOperations(const vector<Polinom<T>> &vectorPolinom, int operation, int selectedOption1, int selectedOption2) {
 
@@ -188,6 +204,8 @@ void UserInterface::doPolinomOperations(const vector<Polinom<T>> &vectorPolinom,
 }
 
 
+//functi pt a simula asteptarea sa iasa din program
+
 void UserInterface::simulateExiting() {
     cout << "Sper ca te-ai simtit bine!\n";
     cout << "Exiting";
@@ -196,9 +214,4 @@ void UserInterface::simulateExiting() {
         cout << ".";
     }
 }
-
-//void UserInterface::complexMenu() {
-//
-//}
-
 

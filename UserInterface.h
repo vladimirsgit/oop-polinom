@@ -8,8 +8,10 @@
 #include "Complex.h"
 #include "Polinom.h"
 
+//clasa UserInteface este cea prin care userul interactioneaza cu programul
 class UserInterface {
 private:
+    //stringuri pentru diferitele tipuri de alegeri/optiuni pe care le are userul
     const string firstChoices;
     const string polinomTypeChoices;
     const string polinomOpChoices;

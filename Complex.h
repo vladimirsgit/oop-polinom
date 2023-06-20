@@ -4,6 +4,7 @@
 #include <string>
 using namespace std;
 class Complex {
+    //partile reale si partile imaginare
     int realPart;
     int imaginaryPart;
 public:
